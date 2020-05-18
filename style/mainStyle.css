@@ -12,6 +12,23 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+#intro {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.articleText {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.caption {
+    padding-left: 100px;
+    padding-bottom: 40px;
+    color: grey;
+    font-size: 0.75em;
+}
+
 #content {
     max-width: 1000px;
     margin: 0 auto;

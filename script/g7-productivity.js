@@ -17,8 +17,8 @@ function chart(data) {
     margin = {
       top: 15,
       right: 15,
-      bottom: 15,
-      left: 30,
+      bottom: 25,
+      left: 50,
     },
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -48,6 +48,21 @@ function chart(data) {
     .append("g")
     .attr("class", "y-axis")
     .attr("transform", "translate(" + margin.left + ",0)");
+
+  svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + 6)
+    .text("Years innit");
+
+  svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 0)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Productivity %, normalised to 2007 levels");
 
   var focus = svg.append("g").attr("class", "focus").style("display", "none");
 
