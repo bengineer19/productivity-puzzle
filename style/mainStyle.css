@@ -17,6 +17,18 @@ body {
     padding-bottom: 10px;
 }
 
+#italyNote {
+    max-width: 300px;
+    float: right;
+    background-color: #eeeeee;
+    margin-top: 20px;
+
+    padding-left: 20px;
+    margin-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
 .articleText {
     padding-left: 100px;
     padding-right: 100px;
@@ -36,6 +48,11 @@ body {
 }
 
 #g7-productivity {
+    display: block;
+    margin: auto;
+}
+
+#uk-output {
     display: block;
     margin: auto;
 }
