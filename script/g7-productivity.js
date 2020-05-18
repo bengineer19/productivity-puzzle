@@ -16,9 +16,9 @@ function chart(data) {
   var svg = d3.select("#g7-productivity"),
     margin = {
       top: 15,
-      right: 35,
+      right: 15,
       bottom: 15,
-      left: 35,
+      left: 30,
     },
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -113,7 +113,7 @@ function chart(data) {
 
     tooltip(keys);
 
-    width = width - margin.left;
+    width = width - margin.right;
     height = height - margin.bottom;
     var curtain = svg
       .append("rect")
@@ -134,8 +134,6 @@ function chart(data) {
 
   function tooltip(keys) {
     var labels = focus.selectAll(".lineHoverText").data(keys);
-
-    console.log(labels);
 
     labels
       .enter()
