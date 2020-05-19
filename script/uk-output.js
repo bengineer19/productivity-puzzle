@@ -51,19 +51,12 @@ function chartOutput(data) {
     .attr("transform", "translate(" + margin.left + ",0)");
 
   svg.append("text")
-    .attr("class", "x label")
-    .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + 6)
-    .text("Years innit");
-
-  svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("y", 0)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("metricVal %, normalised to 2007 levels");
+    .text("Misc metrics normalised to 2008");
 
   var focus = svg.append("g").attr("class", "focus").style("display", "none");
 
