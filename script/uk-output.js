@@ -2,7 +2,7 @@ d3.csv("../data/uk_output.csv").then((d) => chartOutput(d));
 
 function chartOutput(data) {
   var keys = data.columns.slice(1);
-  console.log(data)
+  // console.log(data)
 
   var parseTime = d3.timeParse("%b-%y"),
     formatDate = d3.timeFormat("%b-%y"),

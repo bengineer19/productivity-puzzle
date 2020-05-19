@@ -56,3 +56,13 @@ body {
     display: block;
     margin: auto;
 }
+
+#uk-labour {
+    display: block;
+    margin: auto;
+}
+
+.footer {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
