@@ -46,22 +46,13 @@ function labour() {
     .x((d) => x(d.date))
     .y((d) => y(d.labour))
 
-    // Add the line path.
+    // Add line path.
     svg.append("path")
     .data([data])
     .style("stroke", 'indigo')
     .style("stroke-width", '3px')
     .attr("class", "line")
     .attr("d", line);
-
-    // // Add the x Axis
-    // svg
-    //   .append("g")
-    //   .attr("transform", "translate(0," + height + ")")
-    //   .call(d3.axisBottom(x));
-
-    // // Add the y Axis
-    // svg.append("g").call(d3.axisLeft(y));
 
   svg
     .append("g")
@@ -73,6 +64,8 @@ function labour() {
     .append("g")
     .attr("class", "y-axis")
     .attr("transform", "translate(" + margin.left + ",0)");
+
+    svg.selectAll(".y-axis").call(d3.axisLeft(y));
 
   });
 }
