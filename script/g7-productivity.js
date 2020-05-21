@@ -16,7 +16,7 @@ function chart(data) {
   var svg = d3.select("#g7-productivity"),
     margin = {
       top: 15,
-      right: 15,
+      right: 5,
       bottom: 25,
       left: 50,
     },

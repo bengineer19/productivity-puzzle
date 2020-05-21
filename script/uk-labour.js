@@ -3,8 +3,8 @@ function labour() {
   var svg = d3.select("#uk-labour"),
     margin = {
       top: 15,
-      right: 15,
-      bottom: 25,
+      right: 5,
+      bottom: 15,
       left: 50,
     },
     width = +svg.attr("width") - margin.left - margin.right,
@@ -22,11 +22,28 @@ function labour() {
 
   // Get the data
   d3.csv("../data/uk_labour.csv").then((data) => {
+
+    var preCrisisData = [],
+        crisisData = [],
+        postCrisisData = []
+        preDate = d3.timeParse("%Y")("2008"),
+        postDate = d3.timeParse("%Y")("2010")
     // format the data
     data.forEach((d) => {
       d.date = parseDate(d.date);
       d.labour = +d.labour;
+      if(d.date >= postDate){
+        postCrisisData.push(d)
+      }else if(d.date >= preDate){
+        crisisData.push(d)
+      }else {
+        preCrisisData.push(d)
+      }
     });
+
+    // Make data continuous
+    preCrisisData.push(crisisData[0])
+    crisisData.push(postCrisisData[0])
 
     var x = d3
     .scaleTime()
@@ -45,14 +62,41 @@ function labour() {
     var line = d3.line()
     .x((d) => x(d.date))
     .y((d) => y(d.labour))
+    .curve(d3.curveCardinal)
+    
 
-    // Add line path.
-    svg.append("path")
-    .data([data])
+  svg.append("path")
+    .data([preCrisisData])
     .style("stroke", 'indigo')
     .style("stroke-width", '3px')
     .attr("class", "line")
     .attr("d", line);
+
+  svg.append("path")
+    .data([crisisData])
+    .style("stroke", 'grey')
+    .style("stroke-width", '3px')
+    .attr("class", "line")
+    .attr("d", line);
+
+  var translationX = x(d3.timeParse("%Y")("2010")) - x(d3.timeParse("%Y")("2000")),
+      translationY = y(918.6) - y(888.2);
+
+  svg.append("path")
+    .data([postCrisisData])
+    .style("stroke", 'green')
+    .style("stroke-width", '3px')
+    .attr("class", "line")
+    .attr("d", line)
+    .transition()
+    .attr("transform", `translate(${-translationX}, ${-translationY})`)
+    .duration(2000)
+    .ease(d3.easeCubic)
+    .transition()
+    .attr("transform", "translate(0,0)")
+    .ease(d3.easeCubic)
+    .duration(2000)
+    // .on("end", repeat);
 
   svg
     .append("g")
@@ -63,9 +107,16 @@ function labour() {
   svg
     .append("g")
     .attr("class", "y-axis")
-    .attr("transform", "translate(" + margin.left + ",0)");
+    .attr("transform", "translate(" + margin.left + ",0)")
+    .call(d3.axisLeft(y));
 
-    svg.selectAll(".y-axis").call(d3.axisLeft(y));
+  svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 0)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Misc metrics normalised to 2008");
 
   });
 }

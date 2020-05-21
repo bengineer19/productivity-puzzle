@@ -17,8 +17,8 @@ function chartOutput(data) {
   var svg = d3.select("#uk-output"),
     margin = {
       top: 15,
-      right: 15,
-      bottom: 25,
+      right: 5,
+      bottom: 15,
       left: 50,
     },
     width = +svg.attr("width") - margin.left - margin.right,
