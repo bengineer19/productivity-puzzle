@@ -1,5 +1,10 @@
 d3.csv("../data/uk_output.csv").then((d) => chartOutput(d));
 
+let curtain, curtainSlide;
+let last_known_scroll_position = 0;
+let ticking = false;
+let animationStarted = false;
+
 function chartOutput(data) {
   var keys = data.columns.slice(1);
   // console.log(data)
@@ -141,7 +146,9 @@ function chartOutput(data) {
 
     width = width - margin.right;
     height = height - margin.bottom;
-    var curtain = svg
+    curtainSlide = width;
+
+    curtain = svg
       .append("rect")
       .attr("x", -1 * (width + margin.left))
       .attr("y", -1 * height)
@@ -151,10 +158,40 @@ function chartOutput(data) {
       .attr("transform", "rotate(180)")
       .style("fill", "#ffffff");
 
-    curtain
-      .transition()
-      .duration(5000)
-      .ease(d3.easeCubic)
-      .attr("x", -2 * width);
   }
 }
+
+function isScrolledIntoView(el) {
+  let rect = el.getBoundingClientRect();
+  // Add 200px to make sure at least halfway scrolled past before starting animation
+  return (rect.top + 250) < window.innerHeight;
+}
+
+function scrollChanged(scroll_pos) {
+  let outputChart = document.getElementById("uk-output");
+  if(isScrolledIntoView(outputChart) && !animationStarted) {
+    try{
+      curtain
+      .transition()
+      .duration(6000)
+      .ease(d3.easeCubic)
+      .attr("x", -2 * curtainSlide);
+      animationStarted = true;
+    }
+    catch (e) {
+    }
+  }
+}
+
+window.addEventListener('scroll', function(e) {
+  last_known_scroll_position = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      scrollChanged(last_known_scroll_position);
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});

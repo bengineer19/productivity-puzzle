@@ -126,7 +126,7 @@ function labour() {
     .attr("y", 0)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Misc metrics normalised to 2008");
+    .text("UK total actual weekly hours worked (millions)");
 
   });
 }
