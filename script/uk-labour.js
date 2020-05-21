@@ -55,7 +55,7 @@ function labour() {
     // Scale the range of the data
     x.domain( d3.extent(data, (d) => d.date) );
     y.domain([
-      d3.min(data, (d) => d.labour),
+      d3.min(data, (d) => d.labour) - 10,
       d3.max(data, (d) => d.labour),
     ]).nice();
 
@@ -79,24 +79,34 @@ function labour() {
     .attr("class", "line")
     .attr("d", line);
 
-  var translationX = x(d3.timeParse("%Y")("2010")) - x(d3.timeParse("%Y")("2000")),
-      translationY = y(918.6) - y(888.2);
+  var translationX = x(d3.timeParse("%Y")("2010")) - x(d3.timeParse("%Y")("1998")),
+      translationY = y(918.6) - y(880.4);
 
-  svg.append("path")
+  var postCrisis = svg.append("path")
     .data([postCrisisData])
     .style("stroke", 'green')
     .style("stroke-width", '3px')
     .attr("class", "line")
     .attr("d", line)
+  
+  function repeat() {
+    postCrisis
     .transition()
     .attr("transform", `translate(${-translationX}, ${-translationY})`)
     .duration(2000)
     .ease(d3.easeCubic)
     .transition()
+    .duration(800)
+    .transition()
     .attr("transform", "translate(0,0)")
     .ease(d3.easeCubic)
     .duration(2000)
-    // .on("end", repeat);
+    .transition()
+    .duration(500)
+    .on("end", repeat);
+  }
+
+  repeat();
 
   svg
     .append("g")
