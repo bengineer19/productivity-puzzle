@@ -1,11 +1,9 @@
 const margin = { top: 20, right: 30, bottom: 40, left: 30 };
-const percentFormat = d3.format(".0%");
+const percentFormat = (num) => d3.format(".0%")(num / 100);
 const leftPadding = 5;
 
 const svg = d3.select("#g7-finance");
 const svgGroup = svg
-// .attr("width", width + margin.left + margin.right)
-// .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
   
@@ -36,7 +34,6 @@ function prepareData(data) {
         value = 0;
       } else {
         value = +d[+k];
-        // value = +d[+k] / 100;
       }
       const newEntry = {
         value,
@@ -63,13 +60,20 @@ function yAccessor(d) {
 
 const xScale = d3.scaleLinear().domain([0, 8]).range([0, width]);
 
-const yScale = d3.scaleBand().rangeRound([0, height], 0.1).padding(0.1);
+const yScale = d3.scaleBand().rangeRound([0, height], 1).padding(0.1);
 
 function drawXAxis(el) {
   el.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", `translate(${leftPadding},${height})`)
     .call(d3.axisBottom(xScale).tickFormat(percentFormat));
+  
+  svg.append("text")
+  .attr("class", "x label")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + 6)
+  .text("% Value added");
 }
 
 function drawYAxis(el, data, t) {
@@ -127,7 +131,7 @@ fetch("/data/G7_finance.csv")
       startYear += 1;
       selectedData = removeGeoAreasWithNoData(sortData(data[startYear]));
 
-      d3.select(".year").text(startYear);
+      d3.select("#g7-finance-year").text(startYear);
 
       yScale.domain(selectedData.map(yAccessor));
       drawYAxis(svgGroup, selectedData, t);

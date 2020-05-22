@@ -14,12 +14,13 @@
 }
 
 .bar {
-    fill: #1275bb;
-    fill-opacity: .9;
+    fill: #2196F3;
+    fill-opacity: .8;
 }
 
 .uk-bar {
-    fill: #5ab3e2;
+    fill: #3F51B5;
+    fill-opacity: 1 !important;
 }
 
 .chart-title {

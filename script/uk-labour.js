@@ -13,13 +13,6 @@ function labour() {
   var parseDate = d3.timeParse("%Y %b");
 
 
-    
-  // Set ranges
-  // var x = d3.scaleTime().range([0, width]);
-  // var y = d3.scaleLinear().range([height, 0]);
-
-  
-
   // Get the data
   d3.csv("../data/uk_labour.csv").then((data) => {
 
@@ -94,12 +87,12 @@ function labour() {
     .transition()
     .attr("transform", `translate(${-translationX}, ${-translationY})`)
     .duration(2000)
-    .ease(d3.easeCubic)
+    .ease(d3.easeBack)
     .transition()
     .duration(800)
     .transition()
     .attr("transform", "translate(0,0)")
-    .ease(d3.easeCubic)
+    .ease(d3.easeBack)
     .duration(2000)
     .transition()
     .duration(500)

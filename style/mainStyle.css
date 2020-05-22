@@ -48,6 +48,10 @@ body {
     background-color: white;
 }
 
+#g7-finance-year {
+    font-size: 2em;
+}
+
 .visualisation-svg {
     display: block;
     margin: auto;
