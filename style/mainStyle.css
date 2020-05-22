@@ -44,25 +44,22 @@ body {
 #content {
     max-width: 900px;
     margin: 0 auto;
+    margin-bottom: 20px;
     background-color: white;
 }
 
-#g7-productivity {
+.visualisation-svg {
     display: block;
     margin: auto;
 }
 
-#uk-output {
-    display: block;
-    margin: auto;
-}
-
-#uk-labour {
-    display: block;
-    margin: auto;
+#creds {
+    color: grey; 
+    text-decoration: none;
+    float: right;
 }
 
 .footer {
-    padding-bottom: 30px;
+    padding-bottom: 60px;
     padding-top: 30px;
 }

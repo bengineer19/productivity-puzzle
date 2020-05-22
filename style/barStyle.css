@@ -1,0 +1,32 @@
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis--y path {
+    display: none;
+}
+
+.bar {
+    fill: #1275bb;
+    fill-opacity: .9;
+}
+
+.uk-bar {
+    fill: #5ab3e2;
+}
+
+.chart-title {
+    margin-bottom: 0;
+}
+
+.source {
+    margin-top: 0;
+    font-size: 11px;
+}

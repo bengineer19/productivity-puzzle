@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 
+<!-- 
+
+  Hi!
+  Thanks for stopping by. This code is *Very* hacked together and nowhere near my best work.
+  Feel free to browse by website, benjames.io, or my GitHub, /bengineer19, for other projects!
+ -->
+
 <head>
   <meta charset="utf-8">
 
   <link href='https://fonts.googleapis.com/css?family=Raleway:300,400,600,700,800' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="style/mainStyle.css">
   <link rel="stylesheet" type="text/css" href="style/lineStyle.css">
+  <link rel="stylesheet" type="text/css" href="style/barStyle.css">
   <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
@@ -37,7 +45,7 @@
     </p>
 
     <script type="text/javascript" src="script/g7-productivity.js" ></script>
-    <svg id="g7-productivity" width="780" height="430"></svg>
+    <svg id="g7-productivity" class="visualisation-svg" width="780" height="430"></svg>
     <span class="caption">Mouseover for countries. Source: <a href="https://www.ons.gov.uk/economy/investmentspensionsandtrusts/timeseries/rlke/mq5">ONS MQ5</a></span>
 
 
@@ -66,7 +74,7 @@
     </div>
 
     <script type="text/javascript" src="script/uk-output.js" ></script>
-    <svg id="uk-output" width="780" height="430"></svg>
+    <svg id="uk-output" class="visualisation-svg" width="780" height="430"></svg>
     <span class="caption">Source: <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/articles/whatistheproductivitypuzzle/2015-07-07">ONS Productivity Puzzle</a></span>
 
     <div class="articleText">
@@ -78,13 +86,46 @@
       </p>
     </div>
 
-    <svg id="uk-labour" width="780" height="430"></svg>
+    <svg id="uk-labour" class="visualisation-svg" width="780" height="430"></svg>
     <script type="text/javascript" src="script/uk-labour.js" ></script>
     <span class="caption">Source: <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ybus/lms">ONS employment</a></span>
+    
+    <div class="articleText footer">
+      <p>It's clear that labour grew pretty fast after the crisis - perhaps faster than it was growing before. 
+        And though part of that is due to "recovering" the jobs that were lost during the downturn, it's still significant - labour recovered more quickly than output did. 
+        It's said that following the recession, some UK firms "hoarded" workers, and so the UK's labour decline during the crisis was in fact not as dramatic as many other countries 
+        (source: <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/344439/The_Labour_Market_Story-_The_UK_Following_Recession.pdf">UKCES</a>).
+      </p>
+      <p>This seems strange - you might expect that a country full of firms in demand of work would have an increasing output, especially given the UK's record before the crisis.
+        But as we know, productivity remained pretty flat. The fact that labour grew rapidly after the crisis is interesting, but doesn't answer the question alone.
+      </p>
+      <p>
+        Since this is a story of the UK vs other countries, we have to look at what makes the UK economy different to others. 
+        There are two relevant answers: the UK Finance sector, and government investment in the economy. 
+        Let's talk about the finance sector first. 
+      </p>
+      <p>
+        
+      </p>
+    </div>
+    
+    <h4 class="chart-title">test <span class="year"></span></h4>
+    <svg id="g7-finance" class="visualisation-svg" width="780" height="430"></svg>
+    <script type="text/javascript" src="script/g7-finance.js" ></script>
+    <span class="caption">Source: OECD (2020), Value added by activity (indicator). doi: 10.1787/a8b2bd2b-en (Accessed on 22 May 2020)</span>
+
+    
+    <div class="articleText">
+      <p>Well, I have exams to be revising for, so I'll leave it there.
+         If you want to read more about this, a good starting place is the <a href="https://www.mckinsey.com/featured-insights/regions-in-focus/solving-the-united-kingdoms-productivity-puzzle-in-a-digital-age" >McKinsey institute report</a>.
+      </p>
+      <p>
+        Feel free to contact me through <a href="http://benjames.io">my website</a> if you want to chat!</p>
+      </p>
+    </div>
 
     <div class="articleText footer">
-      <p>Well that's that. Feel free to contact me through <a href="http://benjames.io">my website</a> if you want to chat </p>
-      <p></p>
+      <a href="http://benjames.io" id="creds">Ben James</a>
     </div>
   </div>
 </body>
