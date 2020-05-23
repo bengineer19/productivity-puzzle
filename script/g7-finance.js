@@ -73,7 +73,7 @@ function drawXAxis(el) {
   .attr("text-anchor", "end")
   .attr("x", width)
   .attr("y", height + 6)
-  .text("% Value added");
+  .text("% of value added by finance sector");
 }
 
 function drawYAxis(el, data, t) {
