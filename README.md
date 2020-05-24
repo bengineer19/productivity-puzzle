@@ -2,7 +2,7 @@
 
 A quick and dirty look at the Productivity Puzzle, mostly for my benefit.
 
-(Live link)[https://productivity-puzzle.netlify.app/]
+[Live link](https://productivity-puzzle.netlify.app/)
 
 ## Code
 
