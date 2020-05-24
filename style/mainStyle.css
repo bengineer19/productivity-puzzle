@@ -67,6 +67,11 @@ body {
     float: right;
 }
 
+#code-link {
+    color: #444444;
+    font-size: 0.8em;
+}
+
 .footer {
     padding-bottom: 60px;
     padding-top: 30px;
