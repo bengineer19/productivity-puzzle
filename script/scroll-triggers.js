@@ -12,6 +12,7 @@ window.addEventListener('scroll', function(e) {
 
   if (!ticking) {
     window.requestAnimationFrame(function() {
+      // Run scroll listeners to trigger animations
       scrollChangedOutput(last_known_scroll_position);
       scrollChangedInvestment(last_known_scroll_position);
       ticking = false;

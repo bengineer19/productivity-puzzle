@@ -17,7 +17,7 @@ function drawInvestment() {
   const width = +svg.attr("width") - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
-  var parseDate = d3.timeParse("%Y");
+  const parseDate = d3.timeParse("%Y");
   // Parse the Data
   d3.csv("data/uk_investment.csv").then((data) => {
     data.forEach(function (d) {
@@ -37,7 +37,6 @@ function drawInvestment() {
     x = d3
       .scaleTime()
       .range([0, width])
-      // .domain([parseDate("1994"), d3.max(data, (d) => d.date)]);
       .domain(d3.extent(data, (d) => d.date));
 
     svgGroupInvestment
@@ -45,7 +44,7 @@ function drawInvestment() {
       .attr("transform", "translate(0," + (height - margin.bottom) + ")")
       .call(d3.axisBottom(x));
 
-    // Add labels
+    // Add axis label
     svg
       .append("text")
       .attr("class", "y label")
@@ -176,7 +175,6 @@ function scrollChangedInvestment(scroll_pos) {
 
       investmentAnimationStarted = true;
     } catch (e) {
-      throw e;
       if (e instanceof TypeError) {
       } else {
         throw e;

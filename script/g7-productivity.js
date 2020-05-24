@@ -1,27 +1,24 @@
-d3.csv("../data/G7_productivity.csv").then((d) => chart(d));
+d3.csv("../data/G7_productivity.csv").then((data) => {
+  const keys = data.columns.slice(1);
 
-function chart(data) {
-  var keys = data.columns.slice(1);
-
-  var parseTime = d3.timeParse("%Y"),
-    formatDate = d3.timeFormat("%Y"),
-    bisectDate = d3.bisector((d) => d.date).left,
-    formatValue = d3.format(",.0f");
+  const parseTime = d3.timeParse("%Y");
+  const formatDate = d3.timeFormat("%Y");
+  const bisectDate = d3.bisector((d) => d.date).left;
 
   data.forEach(function (d) {
     d.date = parseTime(d.date);
     return d;
   });
 
-  var svg = d3.select("#g7-productivity"),
-    margin = {
-      top: 15,
-      right: 5,
-      bottom: 25,
-      left: 50,
-    },
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
+  const svg = d3.select("#g7-productivity");
+  const margin = {
+    top: 15,
+    right: 5,
+    bottom: 25,
+    left: 50,
+  };
+  var width = +svg.attr("width") - margin.left - margin.right;
+  var height = +svg.attr("height") - margin.top - margin.bottom;
 
   var x = d3
     .scaleTime()
@@ -49,14 +46,16 @@ function chart(data) {
     .attr("class", "y-axis")
     .attr("transform", "translate(" + margin.left + ",0)");
 
-  svg.append("text")
+  svg
+    .append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
     .attr("x", width)
     .attr("y", height + 6)
     .text("Years innit");
 
-  svg.append("text")
+  svg
+    .append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("y", 0)
@@ -82,7 +81,7 @@ function chart(data) {
     .attr("text-anchor", "middle")
     .attr("font-size", 12);
 
-  var overlay = svg
+  svg
     .append("rect")
     .attr("class", "overlay")
     .attr("x", margin.left)
@@ -92,17 +91,15 @@ function chart(data) {
   update();
 
   function update() {
-    var countries = keys.map(function (id) {
-      return {
-        id: id,
-        values: data.map((d) => {
-          return {
-            date: d.date,
-            productivity: +d[id],
-          };
-        }),
-      };
-    });
+    var countries = keys.map((id) => ({
+      id: id,
+      values: data.map((d) => {
+        return {
+          date: d.date,
+          productivity: +d[id],
+        };
+      }),
+    }));
 
     y.domain([
       d3.min(countries, (d) => d3.min(d.values, (c) => c.productivity)),
@@ -111,8 +108,7 @@ function chart(data) {
 
     svg.selectAll(".y-axis").transition().duration(100).call(d3.axisLeft(y));
 
-    var country = svg.selectAll(".countries").data(countries);
-
+    const country = svg.selectAll(".countries").data(countries);
     country.exit().remove();
 
     country
@@ -148,7 +144,7 @@ function chart(data) {
   }
 
   function tooltip(keys) {
-    var labels = focus.selectAll(".lineHoverText").data(keys);
+    const labels = focus.selectAll(".lineHoverText").data(keys);
 
     labels
       .enter()
@@ -160,7 +156,7 @@ function chart(data) {
       .attr("dy", (_, i) => 1 + i * 2 + "em")
       .merge(labels);
 
-    var circles = focus.selectAll(".hoverCircle").data(keys);
+    const circles = focus.selectAll(".hoverCircle").data(keys);
 
     circles
       .enter()
@@ -172,16 +168,12 @@ function chart(data) {
 
     svg
       .selectAll(".overlay")
-      .on("mouseover", function () {
-        focus.style("display", null);
-      })
-      .on("mouseout", function () {
-        focus.style("display", "none");
-      })
+      .on("mouseover", () => focus.style("display", null))
+      .on("mouseout", () => focus.style("display", "none"))
       .on("mousemove", mousemove);
 
     function mousemove() {
-      var x0 = x.invert(d3.mouse(this)[0]),
+      const x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(data, x0, 1),
         d0 = data[i - 1],
         d1 = data[i],
@@ -220,4 +212,4 @@ function chart(data) {
             .attr("dx", 10);
     }
   }
-}
+});

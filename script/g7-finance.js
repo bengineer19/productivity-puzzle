@@ -6,22 +6,16 @@ const svg = d3.select("#g7-finance");
 const svgGroup = svg
   .append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
-  
+
 const width = svg.attr("width") - margin.left - margin.right;
 const height = svg.attr("height") - margin.top - margin.bottom;
 
+const xAccessor = (d) => d.value;
+const yAccessor = (d) => d.countryName;
 
-const delay = function (d, i) {
-  return i * 40;
-};
-
-function sortData(data) {
-  return data.sort((a, b) => b.value - a.value);
-}
-
-function removeGeoAreasWithNoData(data) {
-  return data.filter((d) => d.value);
-}
+const sortData = (data) => data.sort((a, b) => b.value - a.value);
+const removeCountriesWithNoData = (data) => data.filter((d) => d.value);
+const delay = (d, i) => i * 40;
 
 function prepareData(data) {
   return data.reduce((accumulator, d) => {
@@ -50,16 +44,7 @@ function prepareData(data) {
   }, {});
 }
 
-function xAccessor(d) {
-  return d.value;
-}
-
-function yAccessor(d) {
-  return d.countryName;
-}
-
 const xScale = d3.scaleLinear().domain([0, 8]).range([0, width]);
-
 const yScale = d3.scaleBand().rangeRound([0, height], 1).padding(0.1);
 
 function drawXAxis(el) {
@@ -67,13 +52,14 @@ function drawXAxis(el) {
     .attr("class", "axis axis--x")
     .attr("transform", `translate(${leftPadding},${height})`)
     .call(d3.axisBottom(xScale).tickFormat(percentFormat));
-  
-  svg.append("text")
-  .attr("class", "x label")
-  .attr("text-anchor", "end")
-  .attr("x", width + 20)
-  .attr("y", height + 6)
-  .text("% of value added by finance sector");
+
+  svg
+    .append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width + 20)
+    .attr("y", height + 6)
+    .text("% of value added by finance sector");
 }
 
 function drawYAxis(el, data, t) {
@@ -84,7 +70,6 @@ function drawYAxis(el, data, t) {
 
   axis.transition(t).call(d3.axisLeft(yScale)).selectAll("g").delay(delay);
 }
-
 
 function drawBars(el, data, t) {
   let barsG = el.select(".bars-g");
@@ -107,38 +92,36 @@ function drawBars(el, data, t) {
     .delay(delay);
 }
 
+d3.csv("data/G7_finance.csv").then((data) => {
+  data = prepareData(data);
+  const years = Object.keys(data).map((d) => +d);
+  const lastYear = years[years.length - 1];
+  let startYear = years[0];
+  let selectedData = removeCountriesWithNoData(sortData(data[startYear]));
+  let countries = selectedData.map(yAccessor);
 
-fetch("/data/G7_finance.csv")
-  .then((res) => res.text())
-  .then((res) => {
-    const data = prepareData(d3.csvParse(res));
-    const years = Object.keys(data).map((d) => +d);
-    const lastYear = years[years.length - 1];
-    let startYear = years[0];
-    let selectedData = removeGeoAreasWithNoData(sortData(data[startYear]));
-    let geoAreas = selectedData.map(yAccessor);
+  d3.select(".year").text(startYear);
 
-    d3.select(".year").text(startYear);
+  yScale.domain(countries);
+  drawXAxis(svgGroup, selectedData);
+  drawYAxis(svgGroup, selectedData);
+  drawBars(svgGroup, selectedData);
 
-    yScale.domain(geoAreas);
-    drawXAxis(svgGroup, selectedData);
-    drawYAxis(svgGroup, selectedData);
-    drawBars(svgGroup, selectedData);
+  d3.interval(() => {
+    const t = d3.transition().duration(600).ease(d3.easeLinear);
 
-    d3.interval(() => {
-      const t = d3.transition().duration(600).ease(d3.easeLinear);
+    startYear += 1;
+    selectedData = removeCountriesWithNoData(sortData(data[startYear]));
 
-      startYear += 1;
-      selectedData = removeGeoAreasWithNoData(sortData(data[startYear]));
+    d3.select("#g7-finance-year").text(startYear);
 
-      d3.select("#g7-finance-year").text(startYear);
+    yScale.domain(selectedData.map(yAccessor));
+    drawYAxis(svgGroup, selectedData, t);
+    drawBars(svgGroup, selectedData, t);
 
-      yScale.domain(selectedData.map(yAccessor));
-      drawYAxis(svgGroup, selectedData, t);
-      drawBars(svgGroup, selectedData, t);
-
-      if (startYear === lastYear) {
-        startYear = years[0]
-      }
-    }, 600);
-  });
+    // Reapeat at the end
+    if (startYear === lastYear) {
+      startYear = years[0];
+    }
+  }, 600);
+});
