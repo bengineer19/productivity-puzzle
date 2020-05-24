@@ -7,10 +7,7 @@ function chartOutput(data) {
   var keys = data.columns.slice(1);
   // console.log(data)
 
-  var parseTime = d3.timeParse("%b-%y"),
-    formatDate = d3.timeFormat("%b-%y"),
-    bisectDate = d3.bisector((d) => d.date).left,
-    formatValue = d3.format(",.0f");
+  var parseTime = d3.timeParse("%b-%y");
 
   data.forEach(function (d) {
     d.date = parseTime(d.date);
@@ -169,11 +166,19 @@ function chartOutput(data) {
 function scrollChangedOutput(scroll_pos) {
   let outputChart = document.getElementById("uk-output");
   if (isScrolledIntoView(outputChart) && !outputAnimationStarted) {
-    curtain
+    try{
+      curtain
       .transition()
       .duration(6000)
       .ease(d3.easeCubic)
       .attr("x", -2 * curtainSlide);
-    outputAnimationStarted = true;
+      outputAnimationStarted = true;
+    } catch (e) {
+      if (e instanceof TypeError) {
+      }
+      else {
+        throw e;
+      }
+    }
   }
 }
