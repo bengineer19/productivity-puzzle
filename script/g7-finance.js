@@ -1,4 +1,4 @@
-const margin = { top: 20, right: 30, bottom: 40, left: 30 };
+const margin = { top: 20, right: 50, bottom: 40, left: 50 };
 const percentFormat = (num) => d3.format(".0%")(num / 100);
 const leftPadding = 5;
 
@@ -71,7 +71,7 @@ function drawXAxis(el) {
   svg.append("text")
   .attr("class", "x label")
   .attr("text-anchor", "end")
-  .attr("x", width)
+  .attr("x", width + 20)
   .attr("y", height + 6)
   .text("% of value added by finance sector");
 }

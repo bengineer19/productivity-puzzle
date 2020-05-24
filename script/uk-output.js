@@ -1,9 +1,7 @@
 d3.csv("../data/uk_output.csv").then((d) => chartOutput(d));
 
 let curtain, curtainSlide;
-let last_known_scroll_position = 0;
-let ticking = false;
-let animationStarted = false;
+let outputAnimationStarted = false;
 
 function chartOutput(data) {
   var keys = data.columns.slice(1);
@@ -55,7 +53,8 @@ function chartOutput(data) {
     .attr("class", "y-axis")
     .attr("transform", "translate(" + margin.left + ",0)");
 
-  svg.append("text")
+  svg
+    .append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("y", 0)
@@ -114,33 +113,40 @@ function chartOutput(data) {
 
     metric.exit().remove();
 
-    var area = d3.area()
-    .curve(d3.curveMonotoneX)
-    .x(function(d) { return x(d.date); })
-    .y0(y(94))
-    .y1(function(d) { return y(d.metricVal); });
+    var area = d3
+      .area()
+      .curve(d3.curveMonotoneX)
+      .x(function (d) {
+        return x(d.date);
+      })
+      .y0(y(94))
+      .y1(function (d) {
+        return y(d.metricVal);
+      });
 
     metric
       .enter()
       .insert("g", ".focus")
       .append("path")
       .attr("class", (d) => "line metrics " + d.id)
-      .attr("data-legend",function(d) { return d.id})
+      .attr("data-legend", function (d) {
+        return d.id;
+      })
       .style("stroke", (d) => z(d.id))
-      .style("fill", function(d) { 
-        if(d.id === "Productivity"){
+      .style("fill", function (d) {
+        if (d.id === "Productivity") {
           return z(d.id);
         } else {
-          return '';
-        }})
+          return "";
+        }
+      })
       .merge(metric)
       // .attr("d", (d) => line(d.values));
       .attr("d", (d) => {
-        if(d.id === "Productivity"){
-          return area(d.values)
-        }
-        else {
-          return line(d.values)
+        if (d.id === "Productivity") {
+          return area(d.values);
+        } else {
+          return line(d.values);
         }
       });
 
@@ -157,41 +163,17 @@ function chartOutput(data) {
       .attr("class", "curtain")
       .attr("transform", "rotate(180)")
       .style("fill", "#ffffff");
-
   }
 }
 
-function isScrolledIntoView(el) {
-  let rect = el.getBoundingClientRect();
-  // Add 200px to make sure at least halfway scrolled past before starting animation
-  return (rect.top + 250) < window.innerHeight;
-}
-
-function scrollChanged(scroll_pos) {
+function scrollChangedOutput(scroll_pos) {
   let outputChart = document.getElementById("uk-output");
-  if(isScrolledIntoView(outputChart) && !animationStarted) {
-    try{
-      curtain
+  if (isScrolledIntoView(outputChart) && !outputAnimationStarted) {
+    curtain
       .transition()
       .duration(6000)
       .ease(d3.easeCubic)
       .attr("x", -2 * curtainSlide);
-      animationStarted = true;
-    }
-    catch (e) {
-    }
+    outputAnimationStarted = true;
   }
 }
-
-window.addEventListener('scroll', function(e) {
-  last_known_scroll_position = window.scrollY;
-
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      scrollChanged(last_known_scroll_position);
-      ticking = false;
-    });
-
-    ticking = true;
-  }
-});

@@ -86,16 +86,16 @@ function labour() {
     postCrisis
     .transition()
     .attr("transform", `translate(${-translationX}, ${-translationY})`)
-    .duration(2000)
-    .ease(d3.easeBack)
+    .duration(1500)
+    .ease(d3.easeCubic)
     .transition()
-    .duration(800)
+    .duration(400)
     .transition()
     .attr("transform", "translate(0,0)")
     .ease(d3.easeBack)
-    .duration(2000)
+    .duration(1500)
     .transition()
-    .duration(500)
+    .duration(1000)
     .on("end", repeat);
   }
 

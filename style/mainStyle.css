@@ -48,6 +48,10 @@ body {
     background-color: white;
 }
 
+#finance-source {
+    padding-bottom: 10px;
+}
+
 #g7-finance-year {
     font-size: 2em;
 }
@@ -58,7 +62,7 @@ body {
 }
 
 #creds {
-    color: grey; 
+    color: grey;
     text-decoration: none;
     float: right;
 }
@@ -66,4 +70,13 @@ body {
 .footer {
     padding-bottom: 60px;
     padding-top: 30px;
+}
+
+blockquote {
+    width: 85%;
+    font-style: italic;
+    color: #555555;
+    padding: 1.2em 30px 1.2em 25px;
+    border-left: 8px solid #2f475e;
+    background: #EDEDED;
 }

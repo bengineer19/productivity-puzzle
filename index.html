@@ -4,7 +4,7 @@
 
   Hi!
   Thanks for stopping by. This code is *Very* hacked together and nowhere near my best work.
-  Feel free to browse by website, benjames.io, or my GitHub, /bengineer19, for other projects!
+  Feel free to browse my website, benjames.io, or my GitHub, /bengineer19, for other projects!
  -->
 
 <head>
@@ -24,6 +24,8 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-167481549-1');
+
+    console.log("Hi! Thanks for stopping by. This code is *Very* hacked together and nowhere near my best work. Feel free to browse my website, benjames.io, or my GitHub, /bengineer19, for other projects!");
   </script>
 
 </head>
@@ -47,7 +49,19 @@
         In the UK, producitivity never properly recovered. What's weirder: economists don't really know why.
         It's known as the <strong>Productivity Puzzle</strong>, and this is a quick exploration of it, mostly for my benefit. 
         I wanted to learn how to use <a href="https://d3js.org/">D3.js</a>, and I also wanted to clear my mind by making a project using just Vanilla JS & CSS, no reactivity or UI frameworks.
-        I don't know anything about economics at all, so this is just me having a prod around, idk what I'm talking about 🙏. 
+        I don't know anything about economics at all, so this is just me having a prod around, idk what I'm talking about 🙏.
+      </p>
+      <p>
+        The <a href="https://www.ippr.org/files/publications/pdf/missing-pieces-britains-productivity-puzzle_Aug2015.pdf">IPPR</a> puts it nicely: 
+        <blockquote>
+          "Two key statistics about the UK’s recent productivity performance are now common
+          currency. First, there is a productivity gap of between 23 and 32 per cent between
+          the UK and otherwise comparable countries: Germany, France, the Netherlands and
+          Belgium. Second, there is a productivity gap of 17 per cent between the UK’s current
+          level of productivity and what it would have been if it had continued to increase, at
+          the average rate for the 25 years up to 2007, both during and after the 2007–2008
+          financial crash."
+        </blockquote>
       </p>
     </div>
 
@@ -72,9 +86,10 @@
       <p>
         It's clear that apart from Italy (which has a visibly smaller growth rate before the crisis anyway), the UK is doing pretty badly compared to other countries.
       </p>
+      
       <p>
         First question: what does productivity even mean? Productivity is measured here as GDP per hour worked.
-        So here's where it gets even weirder. If we take a look at these metrics in the UK, they were all doing just fine after 2008. 
+        What's strange is that if we take a look at these metrics in the UK, they were all doing just fine after 2008. 
       </p>
       <p>
         <span style="color: rgb(31, 119, 180)">GDP</span> 
@@ -107,8 +122,11 @@
         It's said that following the recession, some UK firms "hoarded" workers, and so the UK's labour decline during the crisis was in fact not as dramatic as many other countries 
         (source: <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/344439/The_Labour_Market_Story-_The_UK_Following_Recession.pdf">UKCES</a>).
       </p>
-      <p>This seems strange - you might expect that a country full of firms in demand of work would have an increasing output, especially given the UK's record before the crisis.
-        But as we know, productivity remained pretty flat. The fact that labour grew rapidly after the crisis is interesting, but doesn't answer the question.
+      <p>
+        The other factor here is that real wages in the UK did not stop declining until 2014 (and then only barely). These lower wages allowed firms to retain more workers. 
+        In previous recessions, firms laid off their least productive workers, resulting in an increase in average productivity. But lower wages this time around meant this did not happen. 
+      </p>
+      <p>Ultimately, wages might well have played a part, and the that labour grew rapidly after the crisis is interesting, but it doesn't answer the whole question.
       </p>
       <p>
         Since this is a story of the UK vs other countries, we have to look at what makes the UK economy different to others. 
@@ -121,7 +139,7 @@
     <svg id="g7-finance" class="visualisation-svg" width="780" height="430"></svg>
     <script type="text/javascript" src="script/g7-finance.js" ></script>
     <span class="caption">Note, unfortunately this data is partially incomplete, hence the variable number of bars on the graph.</span>
-    <div class="caption"> Source: OECD (2020), Value added by activity (indicator). doi: 10.1787/a8b2bd2b-en (Accessed on 22 May 2020) </div>
+    <div id="finance-source" class="caption"> Source: OECD (2020), Value added by activity (indicator). doi: 10.1787/a8b2bd2b-en (Accessed on 22 May 2020) </div>
     
     <div class="articleText">
       <p>
@@ -129,18 +147,24 @@
         This underlines the longer term shift in the UK from an economy based on manufacturing and physical exports to one heavily reliant on consumer credit and financial services.
       </p>
       <p>
-        Though finance is counted as producing value, some (such as <a href="https://marianamazzucato.com/publications/books/value-of-everything/">Mariana Mazzucato</a>) argue that finance is in the business of extracting value rather than producing it.
+        Though most economists regard the finance sector as creating value, some such as <a href="https://marianamazzucato.com/publications/books/value-of-everything/">Mariana Mazzucato</a> argue that finance is in the business of <em>extracting</em> value rather than producing it.
         By extension, a growing proportion of the UK GDP depending on the financial sector is probably not great.
-        It's a sweeping generaliation, but the larger the domestic reliance on finance, the more leveraged the economy, and the harder it is hit in a crisis.
+        It's a sweeping generaliation, but the larger the domestic reliance on finance, the more leveraged the economy is, and the harder it is hit in a crisis.
       </p>
     </div>
+
+
+    <!-- <div id="my_dataviz"></div> -->
+    <svg id="uk-investment" class="visualisation-svg" width="780" height="430"></svg>
+    <script type="text/javascript" src="script/uk-investment.js"></script>
+    <span class="caption">Source: <a href="https://www.ons.gov.uk/economy/grossdomesticproductgdp/articles/ananalysisofinvestmentexpenditureintheukandotherorganisationforeconomiccooperationanddevelopmentnations/2018-05-03">ONS and OECD</a> 1995 to 2015</span>
 
     <div class="articleText">
       <p>Well, I have exams to be revising for, so I'll leave it there.
          If you want to read more about this, a good starting place is the <a href="https://www.mckinsey.com/featured-insights/regions-in-focus/solving-the-united-kingdoms-productivity-puzzle-in-a-digital-age" >McKinsey institute report</a>.
       </p>
       <p>
-        Feel free to contact me through <a href="http://benjames.io">my website</a> if you want to chat!</p>
+        Feel free to contact me through <a href="http://benjames.io/contact">my website</a> if you want to chat!</p>
       </p>
     </div>
 
@@ -148,4 +172,6 @@
       <a href="http://benjames.io" id="creds">Ben James</a>
     </div>
   </div>
+
+  <script type="text/javascript" src="script/scroll-triggers.js" ></script>
 </body>
