@@ -1,3 +1,6 @@
+let curtainProd, curtainProdSlide;
+let productivityAnimationStarted = false;
+
 d3.csv("../data/G7_productivity.csv").then((data) => {
   const keys = data.columns.slice(1);
 
@@ -126,7 +129,9 @@ d3.csv("../data/G7_productivity.csv").then((data) => {
 
     width = width - margin.right;
     height = height - margin.bottom;
-    var curtain = svg
+
+    curtainProdSlide = width;
+    curtainProd = svg
       .append("rect")
       .attr("x", -1 * (width + margin.left))
       .attr("y", -1 * height)
@@ -135,12 +140,6 @@ d3.csv("../data/G7_productivity.csv").then((data) => {
       .attr("class", "curtain")
       .attr("transform", "rotate(180)")
       .style("fill", "#ffffff");
-
-    curtain
-      .transition()
-      .duration(5000)
-      .ease(d3.easeCubic)
-      .attr("x", -2 * width);
   }
 
   function tooltip(keys) {
@@ -213,3 +212,24 @@ d3.csv("../data/G7_productivity.csv").then((data) => {
     }
   }
 });
+
+
+function scrollChangedG7Prod(scrollPos) {
+  let productivityChart = document.getElementById("g7-productivity");
+  if (isScrolledIntoView(productivityChart) && !productivityAnimationStarted) {
+    try {
+      curtainProd
+        .transition()
+        .duration(6000)
+        .ease(d3.easeCubic)
+        .attr("x", -2 * curtainProdSlide);
+      productivityAnimationStarted = true;
+    } catch (e) {
+      if (e instanceof TypeError) {
+        // If you're judging me you can fuck off
+      } else {
+        throw e;
+      }
+    }
+  }
+}

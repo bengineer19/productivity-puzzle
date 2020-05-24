@@ -110,7 +110,7 @@ function drawInvestment() {
   });
 }
 
-function scrollChangedInvestment(scroll_pos) {
+function scrollChangedInvestment(scrollPos) {
   let investmentChart = document.getElementById("uk-investment");
   if (isScrolledIntoView(investmentChart) && !investmentAnimationStarted) {
     try {

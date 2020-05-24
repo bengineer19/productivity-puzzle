@@ -153,7 +153,7 @@ d3.csv("../data/uk_output.csv").then((data) => {
   };
 });
 
-function scrollChangedOutput(scroll_pos) {
+function scrollChangedOutput(scrollPos) {
   let outputChart = document.getElementById("uk-output");
   if (isScrolledIntoView(outputChart) && !outputAnimationStarted) {
     try {

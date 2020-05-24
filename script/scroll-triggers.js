@@ -1,5 +1,5 @@
 let ticking = false;
-let last_known_scroll_position = 0;
+let lastKnownScrollPos = 0;
 
 function isScrolledIntoView(el) {
   let rect = el.getBoundingClientRect();
@@ -8,13 +8,14 @@ function isScrolledIntoView(el) {
 }
 
 window.addEventListener('scroll', function(e) {
-  last_known_scroll_position = window.scrollY;
+  lastKnownScrollPos = window.scrollY;
 
   if (!ticking) {
     window.requestAnimationFrame(function() {
       // Run scroll listeners to trigger animations
-      scrollChangedOutput(last_known_scroll_position);
-      scrollChangedInvestment(last_known_scroll_position);
+      scrollChangedG7Prod(lastKnownScrollPos);
+      scrollChangedOutput(lastKnownScrollPos);
+      scrollChangedInvestment(lastKnownScrollPos);
       ticking = false;
     });
 
@@ -22,3 +23,10 @@ window.addEventListener('scroll', function(e) {
   }
 });
 
+
+setTimeout(() => {
+  // If the graphs are in view without scrolling
+  scrollChangedG7Prod(0);
+  scrollChangedOutput(0);
+  scrollChangedInvestment(0);
+}, 500)
