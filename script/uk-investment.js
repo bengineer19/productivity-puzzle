@@ -5,7 +5,7 @@ function drawInvestment() {
   const margin = {
     top: 10,
     right: 30,
-    bottom: 30,
+    bottom: 15,
     left: 40,
   };
 
@@ -177,10 +177,10 @@ function scrollChangedInvestment(scroll_pos) {
       investmentAnimationStarted = true;
     } catch (e) {
       throw e;
-      // if (e instanceof TypeError) {
-      // } else {
-      //   throw e;
-      // }
+      if (e instanceof TypeError) {
+      } else {
+        throw e;
+      }
     }
   }
 }
